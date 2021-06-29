@@ -23,10 +23,8 @@ class MyApp extends StatefulWidget {
 }
 
 class Example extends State<MyApp> {
-  final String url = 'https://flutter.io/images/flutter-logo-sharing.png';
-  final String svgUrl =
-      'https://flutter.dev/assets/flutter-lockup-4cb0ee072ab312e59784d9fbf4fb7ad42688a7fdaea1270ccf6bbf4f34b7e03f.svg';
-
+  final String url = 'https://danbooru.donmai.us/data/sample/02/5c/__artoria_pendragon_and_saber_alter_fate_and_1_more_drawn_by_suou_sensei__sample-025ca3d85ebf329718f6222886b3b40a.jpg';
+  
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -47,7 +45,7 @@ class Example extends State<MyApp> {
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
-            LoadImage(url: url, svgUrl: svgUrl),
+            LoadImage(url: url),
             ZoomableImage(url: url),
             ZoomableImages(url: url),
             CropImage(url: url),
@@ -59,10 +57,9 @@ class Example extends State<MyApp> {
 }
 
 class LoadImage extends StatelessWidget {
-  const LoadImage({@required this.url, @required this.svgUrl});
+  const LoadImage({@required this.url});
 
   final String url;
-  final String svgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -107,14 +104,6 @@ class LoadImage extends StatelessWidget {
               ),
             );
           },
-        ),
-        Expanded(
-          child: SvgPicture(
-            AdvancedNetworkSvg(
-              svgUrl,
-              SvgPicture.svgByteDecoder,
-            ),
-          ),
         ),
       ],
     );

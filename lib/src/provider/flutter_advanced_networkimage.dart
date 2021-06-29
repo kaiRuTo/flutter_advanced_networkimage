@@ -122,21 +122,21 @@ class AdvancedNetworkImage extends ImageProvider<AdvancedNetworkImage> {
   /// The [HttpStatus] code that you can skip retrying if you meet them.
   final List<int> skipRetryStatusCode;
 
-  ImageStream resolve(ImageConfiguration configuration) {
-    assert(configuration != null);
-    final ImageStream stream = ImageStream();
-    obtainKey(configuration).then<void>((AdvancedNetworkImage key) {
-      if (key.disableMemoryCache) {
-        stream.setCompleter(load(key));
-      } else {
-        final ImageStreamCompleter completer = PaintingBinding
-            .instance.imageCache
-            .putIfAbsent(key, () => load(key));
-        if (completer != null) stream.setCompleter(completer);
-      }
-    });
-    return stream;
-  }
+  // ImageStream resolve(ImageConfiguration configuration) {
+  //   assert(configuration != null);
+  //   final ImageStream stream = ImageStream();
+  //   obtainKey(configuration).then<void>((AdvancedNetworkImage key) {
+  //     if (key.disableMemoryCache) {
+  //       stream.setCompleter(load(key));
+  //     } else {
+  //       final ImageStreamCompleter completer = PaintingBinding
+  //           .instance.imageCache
+  //           .putIfAbsent(key, () => load(key));
+  //       if (completer != null) stream.setCompleter(completer);
+  //     }
+  //   });
+  //   return stream;
+  // }
 
   @override
   Future<AdvancedNetworkImage> obtainKey(ImageConfiguration configuration) {
@@ -144,7 +144,7 @@ class AdvancedNetworkImage extends ImageProvider<AdvancedNetworkImage> {
   }
 
   @override
-  ImageStreamCompleter load(AdvancedNetworkImage key) {
+  ImageStreamCompleter load(AdvancedNetworkImage key, DecoderCallback decode) {
     return MultiFrameImageStreamCompleter(
       codec: _loadAsync(key),
       scale: key.scale,
